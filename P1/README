@@ -1,0 +1,118 @@
+## Project 1 Parallel Mergesort
+
+* Author: Daniel Rao
+* Class: CS452/CS552 [Operating Systems] Section #1
+
+## Overview
+
+The program establishes a deep understanding on parallel mergesort and the usage of threads using the pthread library in order to understand concurrency. Thus the program runs seial mergesort and parallel mergesort (recursively) and compares the result depending on the size of the array and the number of threads given as input by the user.
+
+
+## Manifest
+
+mytest.c : Generates the random array based on the number of elements provided by the user as the first argument. Followed by the second argument as being number of threads and the third argument being optional which is the number of seeds. Once the array is generated mytest.c helps us measure the time taken by each type of sorting algorithm to complete (serial merge sort & parallel merge sort.). If the execution is successful which is that it tests wether the array is sorted than it displays the time taken by each algorithm otherwise it generates the error.
+
+lab.h : It contains the functions prototypes and some defined variables, so that whichever files includes the header file can easily implement those functions.
+
+lab.c: Basically performs mergesort both serial and parallel. The parallel mergesort creates join and merges recursively. This is were the actual sorting takes place
+
+Makefile: Compiles all the files and gathers resources such as the pthread library in our case. 
+
+example: Folder contains the time chart as an example. This is just for reference understanding.
+
+## Building the project
+
+make all
+
+or 
+
+make
+
+## Features and usage
+
+Generates the time taken by each algorithm (serial mergesort and parallel mergesort) to sort a Randomized array based on users input. The parallel sort uses 
+
+Usage: ./mytests <input size> <thread> [<seed>] 
+
+example: ./mytest 100000000 6
+
+## Testing
+
+I ran it a few times and it seems to gereate reasonable ammount of time which was not in contradition with the data chart that was provided with the program.
+Upon running on onyx: 
+
+./mytest 100000000 1
+
+Serial merge sorting...
+Sorting 100000000 elements took 35.75 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 35.57 seconds.
+
+./mytest 100000000 2
+
+Serial merge sorting...
+Sorting 100000000 elements took 35.65 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 18.59 seconds.
+
+./mytest 100000000 3
+
+Serial merge sorting...
+Sorting 100000000 elements took 35.56 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 18.60 seconds.
+
+./mytest 100000000 4
+
+Serial merge sorting...
+Sorting 100000000 elements took 34.02 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 18.21 seconds.
+
+./mytest 100000000 5
+
+Serial merge sorting...
+Sorting 100000000 elements took 34.10 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 9.90 seconds.
+
+./mytest 100000000 6
+
+Serial merge sorting...
+Sorting 100000000 elements took 34.04 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 9.99 seconds.
+
+./mytest 100000000 7
+
+Serial merge sorting...
+Sorting 100000000 elements took 34.01 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 10.17 seconds.
+
+./mytest 100000000 8
+
+Serial merge sorting...
+Sorting 100000000 elements took 36.49 seconds.
+Parallel Merge sorting...
+Sorting 100000000 elements took 10.26 seconds.
+
+
+## Known Bugs
+
+No known bugs were found
+
+## Reflection and Self Assessment
+
+I encountered a lot of problem in trying to understand C and relearning alot of the concepts such as pointers struct mallocation and memory leaks. Once
+that was learned I had to learn pthread library which was alittle bit tricky but not as bad.
+Alot of times I ran into segmentation faults. One of the main reason was that I wasn't using all the variables from the struct after initialization. 
+After that I also ran into some other errors due to pointing to wrong indexes.
+
+The most challenging part of the project was the recursion and coming up with the formula. Rest was easy to follow however was difficult to debug due to some silly mistakes. I took me a good ammount of time just to debug and put stuff in the right place. Initially I had done the prjoect but it was considered too slow by the teacher as it sub divided the array but was not efficient enough to merge it. The thing was that it was not the parents job to merge all the elements back together but rather the child threads. Thus all of the program had to be changed. I had a rough idea but it took quite a good time to sit down with professor and try to understand what exactly was going on.
+
+Once the program ran it I tested all the inputs and it seems to perform as the way it should that is sorting much faster as compared to a regular serial sort algorithm.
+
+## Sources used
+
+Jidong Xiao, Amara Tariq, Alejandro Macias, Thread API, Process API, OS: 3 easy steps
